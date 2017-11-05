@@ -1,0 +1,601 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Cypress</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/slides.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** test slide **************************** -->
+			<!-- ********************************************************************* -->
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 0 ******************************* -->
+			<!-- ********************************************************************* -->
+			<section class="slide-0">
+				<div class="slide-0__content">
+					<div class="slide-0__wrapper">
+						<div class="sec-logo">
+							<div class="sec-logo-wrapper">
+								<img src="img/SEC_LOGO.png" alt="sec logo">
+							</div>		
+						</div>
+						<div class="epam-logo">
+							<div class="epam-logo-wrapper">
+								<img src="img/EPAM_LOGO.png" alt="epam logo">
+							</div>
+						</div>
+	
+						<h4>Cypress E2E tests automation framework</h1>
+							<p class="slide-0__name">
+								<small>
+									<a href="https://github.com/marimax">Maxim Milovanov</a>
+								</small>
+							</p>
+							<p class="slide-0__date">
+								<small>
+										<a>November 28, 2017</a>
+								</small>		
+							</p>
+					</div>
+				</div>
+			</section>
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 1 ******************************* -->
+			<!-- ********************************************************************* -->
+			<section class="slide-1">
+				<div class="slide-1__content">
+					<div class="sl-block slide-1__picture" data-block-type="image">
+						<div class="sl-block-content slide-1__picture__wrapper">
+							<img data-natural-width="1016" data-natural-height="1012" data-lazy-loaded="" data-src="https://s3.amazonaws.com/media-p.slid.es/uploads/605314/images/4191400/IMG_20170914_123740.jpg">
+						</div>
+					</div>
+					<div class="slide-1__text__wrapper">
+						<div class="sl-block slide-1__name" data-block-type="text">
+							<div class="sl-block-content">
+								<p>Maxim Milovanov</p>
+							</div>
+						</div>
+
+						<div class="sl-block slide-1__text" data-block-type="text">
+							<div class="sl-block-content">
+								<p>UI developer with some experience in Software engineering.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** agenda  ******************************* -->
+			<!-- ********************************************************************* -->
+
+			<section >
+					<h2 class="slide-3__header">Agenda</h2>
+					<div style="text-align: left">
+						<p class="fragment fade-in">1. Short intro</p>
+						<p class="fragment fade-in">2. Cypress setup</p>
+						<p class="fragment fade-in">3. Cypress overview</p>
+						<p class="fragment fade-in">4. Several demonstrations</p>
+						<p class="fragment fade-in">5. Pitfails</p>
+						<p class="fragment fade-in">6. Conclusion</p>
+					</div>
+					<aside class="notes">
+						
+					</aside>
+				</section>
+	
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 2 ******************************* -->
+			<!-- ********************************************************************* -->
+			<section class="slide-2">
+				<section class="slide-2__1">
+					<h2 class="slide-2__1__header">Testing</h2>
+					<p>There's different types of tests, like:</p>
+					<p class="fragment fade-in">Unit tests</p>
+					<p class="fragment fade-in">Integration tests</p>
+					<p class="fragment fade-in">End to end tests</p>
+					<aside class="notes">
+						unit tests the most simple from all the tests, we write them a lot, the main purpouse of them to test small pieceses of your
+						app, like functions interation tests more complex, they include interaction between elements, it could be something
+						like interaction between UI and backend services, or backend and DB End to end tests, or functional tests it's tests
+						from user perspective, your tests does basically the same what your user will do, the most complect staff, from UI
+						to DB thourght the whole system
+					</aside>
+				</section>
+				<section class="slide-2__2">
+					<h2 class="slide-2__2__header">Manager dream</h2>
+					<div class="sl-block" data-block-type="image">
+						<div class="sl-block-content">
+							<img data-natural-width="1882" data-natural-height="1104" src="https://s3.amazonaws.com/media-p.slid.es/uploads/605314/images/4191491/Screen_Shot_2017-10-04_at_10.08.06_PM.png"
+							 data-lazy-loaded="">
+						</div>
+					</div>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section class="slide-2__3">
+					<h2 class="slide-2__3__header">Developer reality</h2>
+					<div class="sl-block-content slide-2__3__picture">
+						<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/605314/images/4194425/Screen_Shot_2017-10-05_at_7.55.34_PM.png">
+					</div>
+					<aside class="notes">
+						it's really difficult to achieve and hard to maintain, when you change something there is a chance you will need to revrite
+						all the tests related to this finction I can see at least 87 of them What the goal of writing tests we want to be safe,
+						in case of refactoring we want to deploy wiltout manual Testing our goal not to make software free of bugs, our goal
+						to feel safe, but let's ask users what do they think?
+					</aside>
+				</section>
+
+				<section class="slide-2__4">
+					<h2 class="slide-2__4__header">User experience</h2>
+					<div class="sl-block-content slide-2__4__picture">
+						<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/605314/images/4194484/idc.gif">
+					</div>
+					<aside class="notes">
+						right people don't care about your tests, your tests cover only one small piece of your app 87 times, but user need something
+						completely different, he doesnt want to know about your coverage, he wants only one thing working product. and all
+						those tests it's just your responsobility now
+					</aside>
+				</section>
+
+				<section class="slide-2__5">
+					<h2 class="slide-2__5__header">Overall</h2>
+					<p class="fragment fade-in">Tests are hard</p>
+					<p class="fragment fade-in">They consumes your time and drag you back</p>
+					<p class="fragment fade-in">They are not very useful from user perspective</p>
+					<div class="sl-block-content fragment fade-in slide-2__5__svg">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="1 0 86.5 60">
+							<path stroke-width="3" stroke="currentColor" fill="none" d="M 10 0 C 4.477152501692067 1.0145306266472666e-15 -6.763537510981778e-16 4.477152501692068 0 10 L 0 43.64983367919922 C 6.763537510981778e-16 49.17268117750715 4.477152501692068 53.64983367919922 10 53.64983367919922 L 73.56993865966797 53.64983367919922 C 79.09278615797591 53.64983367919922 83.56993865966797 49.17268117750715 83.56993865966797 43.64983367919922 L 83.56993865966797 10 C 83.56993865966797 4.477152501692067 79.09278615797591 3.381768755490889e-16 73.56993865966797 0 L 10 0"
+							 transform="matrix(1 0 0 1 2.39 2.12235)" stroke-linecap="round" selected="true" />
+							<path stroke-width="2" stroke="currentColor" fill="none" d="M 11.459 20 L 11.459 7.197 L 15.981 7.197 L 15.981 5.723 L 5.2780000000000005 5.723 L 5.2780000000000005 7.197 L 9.799 7.197 L 9.799 20 L 11.459 20 M 21.01 20.195 Q 22.094 20.195 22.861 20.034 Q 23.627 19.873 24.487 19.502 L 24.487 18.057 Q 22.797 18.779 21.069 18.779 Q 19.428 18.779 18.525 17.803 Q 17.621 16.826 17.572 14.941 L 24.946 14.941 L 24.946 13.916 Q 24.946 11.748 23.774 10.425 Q 22.602 9.102 20.59 9.102 Q 18.442 9.102 17.167 10.625 Q 15.893 12.148 15.893 14.736 Q 15.893 17.305 17.265 18.75 Q 18.637 20.195 21.01 20.195 M 20.571 10.459 Q 21.84 10.459 22.524 11.274000000000001 Q 23.207 12.09 23.207 13.623 L 17.612 13.623 Q 17.748 12.139 18.515 11.299 Q 19.281 10.459 20.571 10.459 M 34.614 17.08 Q 34.614 16.016 33.945 15.313 Q 33.276 14.609 31.371 13.916 Q 29.985 13.398 29.496 13.125 Q 29.008 12.852 28.788 12.549 Q 28.569 12.246 28.569 11.816 Q 28.569 11.182 29.155 10.82 Q 29.74 10.459 30.893 10.459 Q 32.201 10.459 33.813 11.123 L 34.389 9.805 Q 32.739 9.102 31.01 9.102 Q 29.155 9.102 28.09 9.858 Q 27.026 10.615 27.026 11.924 Q 27.026 12.656 27.333 13.184 Q 27.641 13.711 28.271 14.126 Q 28.901 14.541 30.395 15.098 Q 31.967 15.703 32.509 16.147 Q 33.051 16.592 33.051 17.217 Q 33.051 18.047 32.367 18.452 Q 31.684 18.857 30.414 18.857 Q 29.594 18.857 28.71 18.633 Q 27.826 18.408 27.055 18.018 L 27.055 19.521 Q 28.246 20.195 30.375 20.195 Q 32.387 20.195 33.5 19.385 Q 34.614 18.574 34.614 17.08 M 40.707 18.857 Q 39.906 18.857 39.447 18.34 Q 38.989 17.822 38.989 16.855 L 38.989 10.557 L 42.094 10.557 L 42.094 9.297 L 38.989 9.297 L 38.989 6.816 L 38.051 6.816 L 37.367 9.102 L 35.834 9.775 L 35.834 10.557 L 37.367 10.557 L 37.367 16.924 Q 37.367 20.195 40.473 20.195 Q 40.883 20.195 41.396 20.112 Q 41.908 20.029 42.172 19.902 L 42.172 18.662 Q 41.938 18.73 41.537 18.794 Q 41.137 18.857 40.707 18.857 M 45.932 20 L 45.932 9.297 L 44.311 9.297 L 44.311 20 L 45.932 20 M 44.174 6.396 Q 44.174 6.943 44.447 7.212 Q 44.721 7.48 45.131 7.48 Q 45.522 7.48 45.805 7.212 Q 46.088 6.943 46.088 6.396 Q 46.088 5.85 45.805 5.586 Q 45.522 5.322 45.131 5.322 Q 44.721 5.322 44.447 5.5809999999999995 Q 44.174 5.84 44.174 6.396 M 56.694 20 L 58.315 20 L 58.315 13.018 Q 58.315 10.967 57.338 10.034 Q 56.362 9.102 54.428 9.102 Q 53.324 9.102 52.426 9.536 Q 51.528 9.971 51.03 10.762 L 50.951 10.762 L 50.688 9.297 L 49.369 9.297 L 49.369 20 L 50.99 20 L 50.99 14.385 Q 50.99 12.295 51.772 11.387 Q 52.553 10.479 54.233 10.479 Q 55.502 10.479 56.098 11.123 Q 56.694 11.768 56.694 13.076 L 56.694 20 M 70.405 9.297 L 66.703 9.297 Q 66.03 9.102 65.19 9.102 Q 63.256 9.102 62.201 10.054 Q 61.147 11.006 61.147 12.764 Q 61.147 13.818 61.669 14.639 Q 62.192 15.459 63.022 15.801 Q 62.348 16.211 62.035 16.65 Q 61.723 17.09 61.723 17.676 Q 61.723 18.193 62.001 18.584 Q 62.28 18.975 62.69 19.16 Q 61.557 19.414 60.932 20.127 Q 60.307 20.84 60.307 21.816 Q 60.307 23.242 61.445 24.023 Q 62.582 24.805 64.682 24.805 Q 67.416 24.805 68.842 23.872 Q 70.268 22.939 70.268 21.162 Q 70.268 19.766 69.335 19.033 Q 68.403 18.301 66.664 18.301 L 64.77 18.301 Q 63.891 18.301 63.53 18.091 Q 63.168 17.881 63.168 17.441 Q 63.168 16.611 64.203 16.064 Q 64.623 16.143 65.102 16.143 Q 66.977 16.143 68.051 15.205 Q 69.125 14.268 69.125 12.695 Q 69.125 12.002 68.91 11.45 Q 68.696 10.898 68.422 10.557 L 70.405 10.322 L 70.405 9.297 M 61.869 21.797 Q 61.869 20.811 62.485 20.283 Q 63.1 19.756 64.203 19.756 L 66.147 19.756 Q 67.631 19.756 68.168 20.093 Q 68.705 20.43 68.705 21.299 Q 68.705 22.344 67.724 22.954 Q 66.742 23.564 64.701 23.564 Q 63.334 23.564 62.602 23.115 Q 61.869 22.666 61.869 21.797 M 62.748 12.725 Q 62.748 11.514 63.364 10.898 Q 63.979 10.283 65.121 10.283 Q 67.524 10.283 67.524 12.695 Q 67.524 15 65.151 15 Q 64.018 15 63.383 14.424 Q 62.748 13.848 62.748 12.725"
+							 transform="matrix(1 0 0 1 4.45345 1.09062)" stroke-linecap="round" selected="true" />
+							<path stroke-width="3" stroke="currentColor" fill="none" d="M 18.007 43.701 Q 18.007 42.236 17.162 41.318 Q 16.318 40.4 14.071 39.6 Q 12.734 39.121 12.084 38.726 Q 11.435 38.33 11.161 37.856 Q 10.888 37.383 10.888 36.641 Q 10.888 35.635 11.63 35.068 Q 12.372 34.502 13.691 34.502 Q 15.361 34.502 17.128 35.244 L 17.646 33.799 Q 15.859 33.018 13.73 33.018 Q 11.689 33.018 10.448 33.994 Q 9.208 34.971 9.208 36.621 Q 9.208 38.193 10.063 39.17 Q 10.917 40.146 12.909 40.859 Q 14.335 41.367 15.033 41.768 Q 15.732 42.168 16.029 42.642 Q 16.327 43.115 16.327 43.857 Q 16.327 44.98 15.487 45.61 Q 14.648 46.24 12.987 46.24 Q 11.972 46.24 10.937 46.025 Q 9.902 45.811 9.023 45.439 L 9.023 47.041 Q 10.39 47.695 12.929 47.695 Q 15.273 47.695 16.64 46.641 Q 18.007 45.586 18.007 43.701 M 31.708 33.223 L 30.048 33.223 L 30.048 42.52 Q 30.048 44.316 29.071 45.278 Q 28.095 46.24 26.288 46.24 Q 24.394 46.24 23.417 45.283 Q 22.441 44.326 22.441 42.539 L 22.441 33.223 L 20.78 33.223 L 20.78 42.422 Q 20.78 44.883 22.192 46.289 Q 23.603 47.695 26.181 47.695 Q 28.759 47.695 30.234 46.299 Q 31.708 44.902 31.708 42.461 L 31.708 33.223 M 41.601 34.502 Q 43.222 34.502 44.843 35.264 L 45.546 33.838 Q 43.866 33.018 41.62 33.018 Q 39.511 33.018 37.953 33.916 Q 36.396 34.814 35.57 36.475 Q 34.745 38.135 34.745 40.342 Q 34.745 43.867 36.459 45.781 Q 38.173 47.695 41.327 47.695 Q 43.505 47.695 44.989 47.139 L 44.989 45.684 Q 43.075 46.221 41.581 46.221 Q 39.15 46.221 37.836 44.692 Q 36.523 43.164 36.523 40.361 Q 36.523 37.637 37.885 36.069 Q 39.247 34.502 41.601 34.502 M 58.417 47.5 L 52.46 39.424 L 58.202 33.223 L 56.239 33.223 L 49.765 40.303 L 49.765 33.223 L 48.105 33.223 L 48.105 47.5 L 49.765 47.5 L 49.765 41.904 L 51.259 40.576 L 56.464 47.5 L 58.417 47.5 M 68.437 43.701 Q 68.437 42.236 67.592 41.318 Q 66.747 40.4 64.501 39.6 Q 63.163 39.121 62.514 38.726 Q 61.864 38.33 61.591 37.856 Q 61.318 37.383 61.318 36.641 Q 61.318 35.635 62.06 35.068 Q 62.802 34.502 64.12 34.502 Q 65.79 34.502 67.558 35.244 L 68.075 33.799 Q 66.288 33.018 64.159 33.018 Q 62.118 33.018 60.878 33.994 Q 59.638 34.971 59.638 36.621 Q 59.638 38.193 60.492 39.17 Q 61.347 40.146 63.339 40.859 Q 64.765 41.367 65.463 41.768 Q 66.161 42.168 66.459 42.642 Q 66.757 43.115 66.757 43.857 Q 66.757 44.98 65.917 45.61 Q 65.077 46.24 63.417 46.24 Q 62.402 46.24 61.366 46.025 Q 60.331 45.811 59.452 45.439 L 59.452 47.041 Q 60.819 47.695 63.359 47.695 Q 65.702 47.695 67.069 46.641 Q 68.437 45.586 68.437 43.701"
+							 transform="matrix(1 0 0 1 4.45345 1.09062)" stroke-linecap="round" selected="true" />
+						</svg>
+					</div>
+					<aside class="notes">
+						Lets try to understand the problemm
+					</aside>
+				</section>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 3 ******************************* -->
+			<!-- ********************************************************************* -->
+			<section class="slide-3">
+				<section>
+					<h2 class="slide-3__header">The problem</h2>
+					<div class="sl-block-content" style="z-index: 11;">
+						<img data-natural-width="619" data-natural-height="341" data-lazy-loaded="" src="https://s3.amazonaws.com/media-p.slid.es/uploads/22518/images/3712110/test-pyramid.png">
+					</div>
+					<aside class="notes">
+						Probably we all know this testing pyramid, all of us write a lot of unit tests, because it doesnt take a lot of time it easy
+						to write, fast to run and we have a lot of tools to work with them And we are good at it, we really good at testing
+						small pieces of our app. If we make an analogy and will think about our produce like a car for example we test different
+						parts of the car, we good at testing dors, windows, windshield wipes, but we dont test our car on the road, lets say
+						to Maine, in the winter the real value for our end users in UI tests, our end users don't care about unit tests The
+						main issue, we don't have the right tool for UI tests, the only tool is selenium, which is awfull. Let's imagine we
+						have to start testing with selenium today what is your actions?
+					</aside>
+				</section>
+				<section>
+					<h2 class="slide-3__header">Start with Selenium</h2>
+					<p>What the issue? Just install it and start</p>
+					<p class="fragment fade-in">No it's not selenium</p>
+					<p class="fragment fade-in">You have to pray to selenium gods</p>
+					<p class="fragment fade-in">Probably you have to sacrifice someone, during full moon</p>
+					<p class="fragment fade-in">Write some tests, and let selenium work</p>
+					<p class="fragment fade-in">If it doesn't work today, maybe tomorrow will be the better day</p>
+					<aside class="notes">
+						What can we dream about?
+					</aside>
+				</section>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 4 ******************************* -->
+			<!-- ********************************************************************* -->
+
+			<section>
+				<h2 class="slide-3__header">Dream</h2>
+				<p>Everything should be as simple as
+					<span class="heighlight-e-green">npm</span>
+				</p>
+				<p class="fragment fade-in">Should be easy to install</p>
+				<p class="fragment fade-in">Should be easy to write tests</p>
+				<p class="fragment fade-in">Should be clear what was wrong if test fails</p>
+				<p class="fragment fade-in">Tests should not depend on moon phases</p>
+				<aside class="notes">
+					You can say it is almost impossible, but there is hope, lets dive in
+				</aside>
+			</section>
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 5 ******************************* -->
+			<!-- ********************************************************************* -->
+			<section class="slide-5" data-background-image="https://s3.amazonaws.com/media-p.slid.es/uploads/605314/images/4205975/star-wars-4.png">
+				<div class="default-background fragment fade-in" data-fragment-index="3"></div>
+				<h2 class="slide-3__header">Hope</h2>
+				<p class="fragment fade-in" data-fragment-index="0">Step 1 install:
+					<span class="heighlight-e-green">npm i cypress -D</span>
+				</p>
+				<p class="fragment fade-in" data-fragment-index="1">Step 2 write simple test:
+					<span class="heighlight-e-green">cy.visit(<span class="heighlight-e-blue">'https://google.com'</span>)</span>
+				</p>
+				<p class="fragment fade-in" data-fragment-index="2">Step 3 assert:
+					<span class="heighlight-e-green">cy.focused()</span>
+				</p>
+				<p class="fragment fade-in" data-fragment-index="3">Step 4 run</p>
+				<p class="fragment fade-in">Step 5 look at the results, it could be anything, including screenshots and video footage</p>
+				<aside class="notes">
+					Ok lets check small demo how it's actually works
+				</aside>
+			</section>
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 6 ******************************* -->
+			<!-- ********************************************************************* -->
+
+			<section class="slide-6">
+				<h2 class="slide-3__header">Demo</h2>
+				<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+						describe('Login page tests', () => {
+							it('should have logo and inputs for creds', () => {
+								cy.visit(Cypress.env('host'));
+								cy.get('.logo-wrapper');	//should have logo
+								cy.get('#lusername');		//should have email input
+								cy.get('#lpassword');		//and password input
+								cy.get('.forgot-password');	//should have forgot pass link
+								cy.screenshot();		//and let's make a screenshot
+							})
+						})
+				</code></pre>
+
+				<aside class="notes">
+					Here you can see simple test, which will open 'host' page and expectes to find logo, and input fields for user name and pass
+					lets try to run it, as you can see it doesn't take much time, Everything is smooth and fast
+				</aside>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 7 ******************************* -->
+			<!-- ********************************************************************* -->
+
+			<section class="slide-7">
+				<section>
+					<h2 class="slide-3__header">Environments</h2>
+					<span class="heighlight-e-green">Cypress.visit(
+						<span class="heighlight-e-blue">'host'</span>)</span>
+					<aside class="notes">
+						As you saw on the previous slide, there wase something like Cypress.env('host'). a little bit overhead for such a simple
+						example, but lets imagine we have 3 different enviroments, well now you can set host to different url, and actualy
+						you have 4 different options how to do that
+					</aside>
+				</section>
+				<section>
+					<h2 class="slide-3__header">Config file</h2>
+					<p>cypress.json</p>
+					<pre>
+							<code class="json" data-trim style="font-size: 18px;">
+									{
+										"fixturesFolder":"./src/main/resources/static/test/fixtures",
+										"integrationFolder": "./.tmp/build/tests",
+										"ignoreTestFiles": "/**/!(*cyspec*).js",
+										"chromeWebSecurity": false,
+										"env": {
+											"host": "https://si-extern.example.com",
+											"host-internal": "https://si-intern.example.com",
+											"mailServer": "http://si-intern.example.com:6080",
+											"admin": "si-admin-login.json",
+											"firstUser": "si-maxim-login.json",
+											"secondUser": "si-maxim-external-login.json"
+										}
+									}								
+							</code>
+						</pre>
+					<aside class="notes">
+						this file contains cypress options, such us where to store screenshots, vidio files etc, and we also can include env settings
+						this option perfect for default values or settings shared between all the environments
+					</aside>
+				</section>
+				<section>
+					<h2 class="slide-3__header">Env Config file</h2>
+					<p>cypress.env.json</p>
+					<pre>
+								<code class="json" data-trim style="font-size: 18px;">
+										{
+												"host": "https://dev-extern.example.com",
+												"host-internal": "https://dev-intern.example.com",
+												"mailServer": "http://dev-intern.example.com:6080",
+												"admin": "dev-admin-login.json",
+												"firstUser": "dev-maxim-login.json",
+												"secondUser": "dev-maxim-external-login.json"
+										}	
+								</code>
+							</pre>
+					<aside class="notes">
+						you can add this file for CI or for local use by developers, all conflicting settings from this file will override env settings
+						from cypress.json
+					</aside>
+				</section>
+				<section>
+					<h2 class="slide-3__header">env varialbles</h2>
+					<code>export cypress_host=pre-dev.example.com</code>
+					<aside class="notes">
+						next option is to set env variables and they will override settings above
+					</aside>
+				</section>
+				<section>
+					<h2 class="slide-3__header">CLI settings</h2>
+					<code>cypress open --env host=pre-dev.example.com</code>
+					<aside class="notes">
+						it is possible to pass env options as a cli parameter, this param will override conflictig options mentioned above
+					</aside>
+				</section>
+
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 8 ******************************* -->
+			<!-- ********************************************************************* -->
+
+			<section class="slide-8">
+				<h2 class="slide-3__header">Fixtures</h2>
+				<p>
+					<span class="heighlight-e-green">cy.fixture(<span class="heighlight-e-blue">'name'</span>).then(fixture=>{})</span>
+				</p>
+				<p class="fragment fade-in">
+					<span class="heighlight-e-green">cy.fixture(<span class="heighlight-e-blue">'name'</span>).as(<span class="heighlight-e-blue">'nameAlias'</span>)</span>
+				</p>
+				<p class="fragment fade-in">
+					<span class="heighlight-e-green">cy.route(<span class="heighlight-e-blue">'GET'</span>,<span class="heighlight-e-blue">'**/users'</span>,<span class="heighlight-e-blue">'fixture:users.json'</span>)</span>
+				</p>
+				<aside class="notes">
+					probably you have noticed there were json files in my env settings, it was fixtures, for tests, you can use different types
+					of files, it could be pictures, video, or whatever you want. And by default cypress will search them in fixtures folder
+					and of cource you can change it in the settings
+				</aside>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 9 ******************************* -->
+			<!-- ********************************************************************* -->
+
+			<section class="slide-9">
+				<h2 class="slide-3__header">Big demo time</h2>
+				<aside class="notes">
+					Ok it's demo time, I'll show you how it works in out project, probably it will take some time, because we are trying to do
+					fully functional tests, the same way as user interacts with out app as you can see some tests are falling, but it's
+					clear why they are falling, Cypress team invest a lot of time into documentation and error description, but the most
+					amazing part of this tool, they make DOM snapshot on each step
+				</aside>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 10 ****************************** -->
+			<!-- ********************************************************************* -->
+
+			<section class="slide-10">
+				<h2 class="slide-3__header">Time</h2>
+				<p>I want faster</p>
+				<p class="fragment fade-in"><span class="heighlight-e-green">cy.route(<span class="heighlight-e-blue">'GET'</span>,<span class="heighlight-e-blue">'**/users'</span>,<span class="heighlight-e-blue">'fx:users.json'</span>)</span></p>
+				<aside class="notes">
+					Last demo took some time, this is the issue, especially during development, you just don't have so much time to wait while
+					all the tests run after each change, and obviously you don't want to wait them to complete after your last commit on Friday night
+					So how can we improve things?
+					there is a simple answer just mock Everything
+					you have the opportunity to mock all your network requests
+					you may say it is not a functional test anymore, yeah that's true, but you can mock everything on your local env, to speed things up
+					and do the whole thing on your CI
+					let's check out how can it be with mocks
+				</aside>
+			</section>	
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 11 ****************************** -->
+			<!-- ********************************************************************* -->
+
+			<!-- nxc demo -->
+			<section class="slide-11">
+				<h2 class="slide-3__header">Fast demo</h2>
+				<aside class="notes">
+					As you can see here I don't event need to serve anything from backend, cypress is capable to serve static assets without any 
+					support, it intercepts all the network requests and responds with propper fixtures, so UI doesnt see any difference. and tests went
+					much faster, than last time.
+				</aside>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 12 ****************************** -->
+			<!-- ********************************************************************* -->
+
+			<section class="slide-12">
+					<h2 class="slide-3__header">Continious Integration</h2>
+					<pre class="fade-in"><code class="docker" data-trim style="font-size: 18px;">
+							ARG http_proxy=http://proxy.goes.here/
+							FROM cypress/internal:chrome61
+							USER root
+							RUN npm install -g cypress
+							RUN cypress install
+							# now run as the new "non-root" user
+							USER person
+							# run cypress
+							CMD ["cypress", "run", "-P","/home/person/"]
+					</code></pre>
+	
+					<aside class="notes">
+						Ok everything works fast and smooth, but all the work done in the browser
+						you may ask what the point of those tests if you don't have installed browser on your CI
+						server. so there is a good answer for that Docker.
+						There is a simple docker script, you can build an image and that's it, this container will
+						run cypress on CI in real browser and you can even check results after it.
+
+						Cypress has a great reporting tool, it record a vidoe footage of the whole process and when your Tests
+						fail it makes screenshots, lets try the prev run like it could be on your CI server and check results
+					</aside>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 13 ****************************** -->
+			<!-- ********************************************************************* -->
+
+			<!-- competitors puppeteer, testcafe, selenium -->
+			<section class="slide-13">
+					<h2 class="slide-3__header">Alternatives</h2>
+					<p class="fragment fade-in">Selenium</p>
+					<p class="fragment fade-in">Puppeteer</p>
+					<p class="fragment fade-in">TestCafe</p>
+					<aside class="notes">
+						There are couple alternatives in the world, probably you all know selenium, it has own advantages, it works with webdriver
+						and webdrivers were made for all browsers, so you can test on any browser, but it is very slow, because it doesn't know current state
+						so you do blind tests, you make an action wait some time, and check if action succeded
+
+						Puppeteer - cool tool but it's not testing tool it's simply chrome API wrapper, if you want to write tests,
+						you will have to add all additional tools like assertion libraries, reporting tools etc.
+
+						TestCafe - old player on the market, their main advatage, they handle all the moderns browsers, but there is no free reporting tool, 
+						cli or engine is free, but if you want to watch it in the browser, or want to record the video of the process, you will need to pay
+						$500 per developer.
+					</aside>	
+			</section>
+
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 14 ****************************** -->
+			<!-- ********************************************************************* -->
+
+			<!--product plans-->
+			<section class="slide-14">
+					<h2 class="slide-3__header">In The future</h2>
+					<p>Plugins system</p>
+					<p class="fragment fade-in">Snapshot testing</p>
+					<p class="fragment fade-in">Screenshot diffing</p>
+					<aside class="notes">
+						There are couple of amazing things in the development pipeline right now
+						Plugins system - allows you to integrate any preprocessing tool straight to your testing environment
+						it could be webpack, babel, typesctipt, what ever you want
+
+						Snapshot testing - cypress already captures snapshots and you can browse thrue them, their next step
+						to save snapshots during first run and on the next run compare 2 similar snapshots, like comparing two states in 
+						the different runs
+
+						Screenshot diffing - you can make screen shots, and cypress will automatically diff them
+					</aside>	
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 15 ****************************** -->
+			<!-- ********************************************************************* -->
+
+			<!-- gotchas  -->
+			<section class="slide-15">
+				<h2 class="slide-3__header">Gotchas</h2>
+				<p>Tests are state dependend</p>
+				<p class="fragment fade-in">Tests polute database</p>
+				<p class="fragment fade-in">Tests require fully functional environment</p>
+				<p class="fragment fade-in">Auth issues</p>
+				<aside class="notes">
+					Teasts are state dependend, so you will want to make sone initial setup or seed your environment,
+					before you test something on it
+					
+					When your tests run they basicaly create new entities in your DB, so you probably don't want to run them on production
+					environment, seeding will also solve this issue and you can even remove your DB after
+					
+					You also need fully functional environment to run functional tests, and if they include new functionality you
+					will know that something is wrong only after deployment
+
+					and the most difficult issue probably authontification, we have workaround in our project - login form,
+					but for most applications here you will need to authentificate user somehow, it could be basic authontification 
+					or something similar
+				</aside>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 16 ****************************** -->
+			<!-- ********************************************************************* -->
+
+			<section class="slide-16">
+					<h2 class="slide-3__header">References</h2>
+					<a href="https://cypress.io" target="_blank">Cypress.io</a>
+					<a href="https://gitter.im/cypress-io/cypress" target="_blank">Cypress gitter</a>
+					<a href="https://github.com/cypress-io/cypress" target="_blank">Cypress github</a>
+					<a href="mailto: Maxim_Milovanov@epam.com" target="_blank">Maxim_Milovanov@epam.com</a>
+
+					<aside class="notes">
+						Thre are some references where you can find more information about cypress.
+						First link is their site, and they did an amaizing job. They spent toons of time to make documentation,
+						there is full API description, with examples how to use it and what is better to avoid all the pros and cons
+
+						On their gitter channed they are very responsive, I'm not sure when they code, because it seems they are always answering different questions
+
+						Github, they developing their project since 2015, but recenlty they made a huge move, they outsourced everything
+						so you can use it for free and even can contribute to the project
+
+						If you have any questions you can always shoot me an email, will try to answer
+					</aside>
+			</section>
+
+			<!-- ********************************************************************* -->
+			<!-- ***************************** slide 16 ****************************** -->
+			<!-- ********************************************************************* -->
+			
+			<section class="slide-17">
+				<h2 class="slide-3__header">Thank you!</h2>
+				<aside class="notes">
+					Thank you for your time and patience, if you have any questions it's time to ask
+				</aside>
+			</section>
+
+			<section class="slide-18">
+					<h2 class="slide-3__header">Questions ?</h2>
+			</section>
+	
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		if(window.Cypress){
+			navigator.serviceWorker.register('sw.js');
+		}
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			slideNumber: true,
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+			]
+		});
+	</script>
+</body>
+
+</html>
